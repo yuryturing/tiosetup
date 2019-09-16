@@ -1,0 +1,15 @@
+#!/bin/bash
+
+err=0
+trap 'err=1' ERR
+
+dir=javascript-node
+rm -rf "$dir"
+mkdir "$dir"
+cd "$dir"
+
+url=https://nodejs.org/dist/latest/
+curl -sSL "$url$(curl -sSL "$url" | grep -Po '(?<=")node-v[\d.]+-linux-x64.tar.xz(?=")')" \
+	| tar x --xz --strip-components=1
+
+exit "$err"
